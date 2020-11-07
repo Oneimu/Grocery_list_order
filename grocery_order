@@ -1,0 +1,34 @@
+# The order of items in the mention store
+GROCERY_STORE_LAYOUT = {
+  1: {'spinach', 'cucumbers', 'lemons', 'broccoli'},
+  2: {'soup', 'corn', 'beans', 'yam', 'rice'},
+  3: {'cereal', 'oatmeal', 'beef', 'tomato'},
+  4: {'bread', 'rolls', 'tortillas', 'meat balls'},
+  5: {'milk', 'cheese', 'butter', 'sugar'},
+  6: {'beer', 'soda'},
+}
+
+"""The program saves it item on my list to the row number where it would be found on the store's layout. if the item is not in the store layout (not in the store), it would save it to Not available."""
+grocery_order = {
+  1: set(),
+  2: set(),
+  3: set(),
+  4: set(),
+  5: set(),
+  6: set(),
+}
+
+def grocery_shop(list_items):
+    list_copy = list_items.copy()
+    
+    for item in list_items:
+        for num in grocery_order:
+            if item in GROCERY_STORE_LAYOUT[num]:
+                list_copy.remove(item)
+                grocery_order[num].add(item)
+    grocery_order['Not available'] = set(list_copy)           
+    return grocery_order            
+
+grocery_list = ['milk', 'beer', 'soda', 'beef', 'cheese', 'soda', 'spinach', 'chicken', 'meat', 'yogurt', 'banana']
+print(grocery_shop(grocery_list))
+# the print statement will return this: {1: {'spinach'}, 2: set(), 3: {'beef'}, 4: set(), 5: {'milk', 'cheese'}, 6: {'beer', 'soda'}, 'Not available': {'banana', 'meat', 'yogurt', 'chicken'}}
